@@ -33,8 +33,8 @@ def game_over():
     ゲームオーバー画面を表示する関数
     """
     fonto = pg.font.Font(None,200)
-    txt = fonto.render("Game Over",True,(255,255,255))
     pg.display.update()
+    txt = fonto.render("Game Over",True,(255,255,255))
         
     #pg.draw.rect()
     time.sleep(5)
