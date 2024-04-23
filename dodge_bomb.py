@@ -2,6 +2,7 @@ import os
 import sys
 import pygame as pg
 import random
+import time
 
 
 WIDTH, HEIGHT = 1600, 900
@@ -27,6 +28,20 @@ def check_bound(obj_rct:pg.Rect) -> tuple[bool,bool]:
         tate = False
     return yoko,tate
 
+def game_over():
+    """
+    ゲームオーバー画面を表示する関数
+    """
+    fonto = pg.font.Font(None,200)
+    txt = fonto.render("Game Over",True,(255,255,255))
+    pg.display.update()
+        
+    #pg.draw.rect()
+    time.sleep(5)
+    return
+
+    
+
 
 
 def main():
@@ -34,6 +49,8 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("fig/pg_bg.jpg")    
     kk_img = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
+
+    
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400 #初期配置
     #爆弾
@@ -51,12 +68,14 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
-            
-        if kk_rct.colliderect(bd_rct): #こうかとんと爆弾がぶつかったら
-            print("Game Over")
-            return
-
         screen.blit(bg_img, [0, 0]) 
+        
+        if kk_rct.colliderect(bd_rct): #こうかとんと爆弾がぶつかったら
+            gm_img = pg.Surface((1800,1800))
+            pg.draw.rect(gm_img,(255,0,0),(0,0,1600,900))
+            gm_img.set_colorkey((0,0,0))
+            game_over()
+
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
