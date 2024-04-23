@@ -51,6 +51,11 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+            
+        if kk_rct.colliderect(bd_rct): #こうかとんと爆弾がぶつかったら
+            print("Game Over")
+            return
+
         screen.blit(bg_img, [0, 0]) 
 
         key_lst = pg.key.get_pressed()
@@ -65,9 +70,6 @@ def main():
             kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
 
         screen.blit(kk_img, kk_rct)
-
-        bd_rct.move_ip(vx,vy) #爆弾の移動
-        screen.blit(bd_img,bd_rct)
 
 
         #爆弾
